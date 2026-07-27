@@ -21,8 +21,10 @@ az cognitiveservices account create \
 # it bills reserved capacity hourly and is wildly wrong for a POC.
 az cognitiveservices account deployment create \
   -n "$AOAI" -g "$RG" \
-  --deployment-name gpt-4o-mini \
-  --model-name gpt-4o-mini --model-version "2024-07-18" --model-format OpenAI \
+#  --deployment-name gpt-4o-mini \
+#  --model-name gpt-4o-mini --model-version "2024-07-18" --model-format OpenAI \
+  --deployment-name gpt-5-mini \
+  --model-name gpt-5-mini --model-version "2025-08-07" --model-format OpenAI \
   --sku-name GlobalStandard --sku-capacity 10 -o none
 
 az cognitiveservices account deployment create \
