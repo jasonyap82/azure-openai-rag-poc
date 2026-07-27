@@ -73,3 +73,22 @@ def embed(client: AzureOpenAI, texts: Sequence[str]) -> list[list[float]]:
         vectors.extend(_embed_batch(client, batch))
         log.info("Embedded %d/%d chunks", len(vectors), len(texts))
     return vectors
+
+# GPT-5 and the o-series changed the chat API contract: max_tokens became
+# max_completion_tokens, and temperature is fixed at 1. Older families still use the
+# old names. Normalising it here means the rest of the codebase doesn't need to care
+# which model family it is pointed at -- which is the whole problem during a migration.
+REASONING_PREFIXES = ("gpt-5", "o1", "o3", "o4")
+
+
+def is_reasoning_model(deployment: str) -> bool:
+    return deployment.lower().startswith(REASONING_PREFIXES)
+
+
+def chat_kwargs(deployment: str, max_output_tokens: int, temperature: float = 0.0) -> dict:
+    """Build generation parameters appropriate to the deployed model family."""
+    if is_reasoning_model(deployment):
+        # Reasoning tokens are consumed against this budget BEFORE any visible output,
+        # so a ceiling sized for the answer alone will return an empty string.
+        return {"max_completion_tokens": max(max_output_tokens, 2000)}
+    return {"max_tokens": max_output_tokens, "temperature": temperature}

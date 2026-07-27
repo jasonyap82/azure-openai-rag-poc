@@ -46,7 +46,7 @@ Retriever (Protocol)
     └── AzureSearchRetriever ... hybrid BM25+vector → semantic rerank
     │
     ▼
-rag.py ───────── relevance floor → grounded prompt → gpt-4o-mini @ temp 0
+rag.py ───────── relevance floor → grounded prompt → gpt-5-mini
     │            citations resolved back to chunks; usage returned
     ▼
 Answer(text, hits, tokens, cost, refused, cited_indices)
@@ -113,11 +113,21 @@ unanswerable by construction and exist to measure exactly that.
 An ungrounded RAG system is worse than no RAG system: it launders a hallucination
 through the credibility of a citation.
 
-### Why temperature 0?
+### Why is there no temperature setting?
 
-This is extraction, not composition. Non-determinism here buys nothing and makes the
-eval suite noisy.
+There was one originally. The argument was sound — this is extraction, not
+composition, so non-determinism buys nothing and only adds eval noise.
 
+It didn't survive the migration to gpt-5-mini. Reasoning models don't accept
+`temperature`, `top_p` or the penalty parameters at all, and `max_tokens` was
+replaced by `max_completion_tokens`. Rather than scatter conditionals through the
+codebase, the difference is isolated in `chat_kwargs()` in `src/aoai.py`, which
+builds the correct parameters for whichever model family the deployment points at.
+
+So determinism is no longer available, and eval noise is handled instead by keeping
+golden assertions substring-based rather than exact-match — they check that the
+required fact appears, not that the wording is identical. That's the more robust
+assertion regardless, and it's what let the eval suite survive a model swap unchanged.
 ### Why is chunk overlap doing nothing on this corpus?
 
 Honest answer: with 400-token chunks and a corpus whose sections are all under ~90
@@ -138,10 +148,16 @@ first-class constraint rather than an afterthought.
 | Item | Rate (approx., mid-2026) | This POC |
 |---|---|---|
 | `text-embedding-3-small` | ~$0.02 / 1M tokens | corpus is ~1.5K tokens → **~$0.00003** |
-| `gpt-4o-mini` | ~$0.15 in / $0.60 out per 1M | ~1.5K tokens/query → **~$0.0005/query** |
+| `gpt-5-mini` | ~$0.25 in / ~$2.00 out per 1M | ~1.5K in + reasoning → **~$0.0015/query** |
 | Full eval run (14 goldens × 2 calls) | — | **~$0.02** |
 | Azure AI Search **Free** tier | $0 | 3 indexes, 50 MB, **no semantic ranker** |
 | Azure AI Search **Basic** | ~$74/month, billed hourly | **~$0.10/hour** |
+
+Note the cost model changed with the migration off gpt-4o-mini. Reasoning models
+generate internal reasoning tokens before any visible output, and those bill at the
+**output** rate — roughly 3x the previous per-query cost, and less predictable, since
+reasoning length varies with question difficulty. This is why `rag.py` reports actual
+token usage per call rather than estimating from the answer length.
 
 The token costs are rounding errors. **The only thing that can hurt you is a search
 service left running.** Hence the local-first default.
@@ -200,8 +216,11 @@ cp .env.example .env      # set AZURE_OPENAI_ENDPOINT
 az login                  # Entra ID auth — no key needed
 ```
 
-You need two Azure OpenAI deployments: a chat model (`gpt-4o-mini` or `gpt-4.1-mini`)
-and `text-embedding-3-small`. For Entra ID auth, assign yourself the **Cognitive
+You need two Azure OpenAI deployments: a chat model (`gpt-5-mini`, or `gpt-5-nano` if
+you want the cheapest option) and `text-embedding-3-small`. Model availability varies
+by region, and models retire — `gpt-4o-mini` was the original choice here and was
+retired from Azure on 31 March 2026. Check the current model retirements page before
+assuming any model name in this README still exists.. For Entra ID auth, assign yourself the **Cognitive
 Services OpenAI User** role on the resource. If you can't assign roles, set
 `AZURE_OPENAI_API_KEY` instead — the code falls back and logs a warning.
 
@@ -234,3 +253,8 @@ the exercise.
 - **Evaluation at scale** — this harness is the right shape but 14 goldens is not a
   test set. Move to Azure AI Foundry evaluations, run it in CI, and gate deploys on
   a groundedness threshold.
+- - **Model lifecycle** — models retire on published schedules, and the API contract can
+  change underneath you when they do. Production needs the deployment name in config
+  (already true here), a pinned model version rather than auto-upgrade, alerting on
+  Azure Service Health retirement notices, and the eval suite run against the successor
+  model before cutover rather than after.

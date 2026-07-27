@@ -25,7 +25,8 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 
-from src.aoai import build_client
+#from src.aoai import build_client
+from src.aoai import build_client, chat_kwargs
 from src.config import get_settings
 from src.rag import Answer, answer_question, format_context, get_retriever
 
@@ -51,8 +52,9 @@ def judge_groundedness(client, context: str, answer: str) -> str:
             {"role": "system", "content": JUDGE_PROMPT},
             {"role": "user", "content": f"CONTEXT:\n{context}\n\nANSWER:\n{answer}"},
         ],
-        temperature=0.0,
-        max_tokens=5,
+        #temperature=0.0,
+        #max_tokens=5,
+        **chat_kwargs(s.chat_deployment, 5),
     )
     return (resp.choices[0].message.content or "").strip().upper()
 
