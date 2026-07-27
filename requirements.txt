@@ -1,0 +1,9 @@
+openai>=1.54.0
+azure-identity>=1.19.0
+azure-search-documents>=11.6.0
+pydantic-settings>=2.6.0
+tiktoken>=0.8.0
+numpy>=1.26.0
+tenacity>=9.0.0
+python-dotenv>=1.0.1
+rich>=13.9.0
