@@ -1,0 +1,14 @@
+{"id": "g01", "question": "How long do I have to file an SLA credit claim?", "expected_source": "sla.md", "must_include": ["30"], "answerable": true}
+{"id": "g02", "question": "What claim type do I use to file for service credits?", "expected_source": "sla.md", "must_include": ["SLA-4402"], "answerable": true}
+{"id": "g03", "question": "What uptime does Premium tier compute commit to?", "expected_source": "sla.md", "must_include": ["99.99"], "answerable": true}
+{"id": "g04", "question": "If Standard tier uptime is 98%, what credit do I get?", "expected_source": "sla.md", "must_include": ["25"], "answerable": true}
+{"id": "g05", "question": "Are preview features covered by the SLA?", "expected_source": "sla.md", "must_include": ["exclud"], "answerable": true}
+{"id": "g06", "question": "Can I cancel an annual subscription and get a prorated refund?", "expected_source": "billing.md", "must_include": ["not prorated", "80%"], "answerable": true}
+{"id": "g07", "question": "How much do three-year reservations discount on-demand rates?", "expected_source": "billing.md", "must_include": ["54"], "answerable": true}
+{"id": "g08", "question": "Will a budget alert stop my resources from running?", "expected_source": "billing.md", "must_include": ["not stop"], "answerable": true}
+{"id": "g09", "question": "When is my account suspended for non-payment?", "expected_source": "billing.md", "must_include": ["45"], "answerable": true}
+{"id": "g10", "question": "Does Contoso rotate customer-managed keys for me?", "expected_source": "security.md", "must_include": ["does not"], "answerable": true}
+{"id": "g11", "question": "How quickly are security incidents reported?", "expected_source": "security.md", "must_include": ["72"], "answerable": true}
+{"id": "g12", "question": "Can I change data residency after creating a subscription?", "expected_source": "security.md", "must_include": ["cannot"], "answerable": true}
+{"id": "g13", "question": "What is Contoso's refund policy for GPU spot instances?", "expected_source": null, "must_include": [], "answerable": false}
+{"id": "g14", "question": "Who is the current CEO of Contoso?", "expected_source": null, "must_include": [], "answerable": false}
