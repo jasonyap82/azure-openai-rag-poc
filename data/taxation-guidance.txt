@@ -1,0 +1,87 @@
+MERIDIAN REVENUE AUTHORITY - BUSINESS DEDUCTIONS GUIDANCE NOTE 2026
+
+PART 1 GENERAL PRINCIPLES OF DEDUCTIBILITY
+
+Division 3 The general deduction provision
+
+3-1 Core test
+
+A taxpayer may deduct from assessable income any loss or outgoing to the extent that it is incurred in gaining or producing that assessable income, or necessarily incurred in carrying on a business for that purpose.
+
+An outgoing is not deductible under this section to the extent that it is of a capital nature, of a private or domestic nature, or incurred in gaining exempt income.
+
+3-2 Apportionment
+
+Where an outgoing serves both a deductible and a non-deductible purpose, the taxpayer must apportion it on a fair and reasonable basis. The Authority accepts floor area, time use, or revenue attribution as reasonable bases provided the method is applied consistently across periods.
+
+A change in apportionment method requires disclosure in the return for the year of change and retention of the calculation for both methods.
+
+Division 4 Timing
+
+4-1 When an outgoing is incurred
+
+An outgoing is incurred when the taxpayer is definitively committed to it, not when it is paid. A provision or accrual for an expense that remains contingent at year end is not incurred.
+
+Prepayments for services extending beyond twelve months must be apportioned across the periods to which they relate. Prepayments under twelve months may be deducted in full in the year incurred where the taxpayer is a small business entity.
+
+PART 2 SUBSTANTIATION
+
+Division 7 Record keeping obligations
+
+7-1 Retention period
+
+Written evidence supporting a deduction must be retained for five years from the date the return is lodged, or five years from the date of resolution where the deduction is subject to dispute, whichever is later.
+
+Records may be retained in electronic form provided they are a true and clear reproduction and remain accessible for the full retention period.
+
+7-2 Content of written evidence
+
+Written evidence must identify the supplier, the amount of the expense, the nature of the goods or services, the date the expense was incurred, and the date of the document.
+
+Where the document does not show the nature of the goods or services, the taxpayer may record that detail themselves before lodging the return.
+
+7-3 Small expense exception
+
+Written evidence is not required for individual expenses of 75 currency units or less, provided the total of all such expenses claimed does not exceed 900 currency units in the income year. A record of the expense must still be made at or near the time it was incurred.
+
+This exception does not apply to entertainment expenses or to expenses relating to a motor vehicle.
+
+PART 3 SPECIFIC CATEGORIES
+
+Division 12 Motor vehicle expenses
+
+12-1 Available methods
+
+A taxpayer may claim motor vehicle expenses using either the cents-per-kilometre method or the logbook method. The election is made annually and may differ between vehicles.
+
+The cents-per-kilometre method is capped at 5,000 business kilometres per vehicle per year and requires no written evidence, though the basis of the estimate must be reasonable and able to be explained.
+
+12-2 Logbook requirements
+
+A logbook must cover a continuous period of at least twelve weeks and remains valid for five income years unless the pattern of use changes materially. Each entry must record the date, odometer readings at start and end, kilometres travelled, and the purpose of the journey.
+
+Where a logbook is not maintained for the required period, only the cents-per-kilometre method is available.
+
+Division 15 Home office expenses
+
+15-1 Occupancy versus running expenses
+
+Running expenses, including electricity, heating, cleaning and depreciation of office furniture, are deductible to the extent of business use.
+
+Occupancy expenses, including rent, mortgage interest, rates and insurance, are deductible only where an area of the home has the character of a place of business. Convenience of working from home does not by itself establish that character.
+
+15-2 Consequences of claiming occupancy expenses
+
+Claiming occupancy expenses may affect the exemption otherwise available on disposal of the taxpayer's main residence for the proportion and period claimed. The Authority recommends taxpayers consider this before electing to claim.
+
+Division 18 Entertainment
+
+18-1 General prohibition
+
+Expenditure on entertainment, including the provision of food, drink or recreation, is not deductible except where an exception in this Division applies.
+
+18-2 Exceptions
+
+Entertainment is deductible where it is provided as a fringe benefit and taxed accordingly, where it is provided by a business whose ordinary activity is providing entertainment for payment, or where it is provided to the general public for promotional purposes.
+
+Light refreshments provided on business premises during a working meeting are not entertainment for the purposes of this Division.

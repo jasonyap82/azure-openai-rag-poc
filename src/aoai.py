@@ -74,6 +74,7 @@ def embed(client: AzureOpenAI, texts: Sequence[str]) -> list[list[float]]:
         log.info("Embedded %d/%d chunks", len(vectors), len(texts))
     return vectors
 
+
 # GPT-5 and the o-series changed the chat API contract: max_tokens became
 # max_completion_tokens, and temperature is fixed at 1. Older families still use the
 # old names. Normalising it here means the rest of the codebase doesn't need to care

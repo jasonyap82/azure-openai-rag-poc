@@ -7,3 +7,10 @@ numpy>=1.26.0
 tenacity>=9.0.0
 python-dotenv>=1.0.1
 rich>=13.9.0
+
+# Demo interface
+streamlit>=1.40.0
+
+# Document loaders (only needed for the formats you actually use)
+pypdf>=5.1.0
+python-docx>=1.1.2

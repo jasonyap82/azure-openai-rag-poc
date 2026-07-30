@@ -21,7 +21,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-#from .aoai import build_client
 from .aoai import build_client, chat_kwargs
 from .config import get_settings
 from .retrievers.base import Hit, Retriever
@@ -99,7 +98,7 @@ def answer_question(question: str, retriever: Retriever, top_k: int | None = Non
                 "content": f"Sources:\n{format_context(hits)}\n\nQuestion: {question}",
             },
         ],
-           **chat_kwargs(s.chat_deployment, 500),
+        **chat_kwargs(s.chat_deployment, 500),
     )
 
     text = resp.choices[0].message.content or ""
