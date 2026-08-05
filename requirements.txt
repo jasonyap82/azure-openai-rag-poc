@@ -8,6 +8,10 @@ tenacity>=9.0.0
 python-dotenv>=1.0.1
 rich>=13.9.0
 
+# Verify TLS against the OS trust store rather than certifi's bundle. Needed on any
+# machine where endpoint protection or a proxy re-signs HTTPS traffic.
+truststore>=0.10.0
+
 # Demo interface
 streamlit>=1.40.0
 

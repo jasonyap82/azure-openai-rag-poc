@@ -7,6 +7,13 @@ from __future__ import annotations
 
 import sys
 
+# Windows consoles default to cp1252, which cannot encode characters the model
+# legitimately produces -- non-breaking hyphens, typographic quotes, en dashes. The
+# answer generates fine and then dies on the way to the screen. Force UTF-8 output.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 from rich.console import Console
 from rich.panel import Panel
 

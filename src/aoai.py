@@ -23,10 +23,37 @@ log = logging.getLogger(__name__)
 EMBED_BATCH_SIZE = 128
 
 
+def _http_client():
+    """Build an HTTP client that validates TLS against the operating system trust store.
+
+    By default the SDK verifies certificates against certifi's bundle of public CAs.
+    That breaks on any machine where a TLS-inspecting middlebox sits in the path --
+    endpoint protection suites, corporate proxies, and some VPNs all terminate TLS and
+    re-sign traffic with a private root. That root is installed in the OS trust store,
+    so browsers work, but Python does not consult the OS store and rejects it.
+
+    truststore delegates verification to the OS, which is what every other application
+    on the machine already does. Certificates are still fully verified -- this is not
+    `verify=False`, which would disable the check and defeat the point.
+    """
+    try:
+        import ssl
+
+        import httpx
+        import truststore
+
+        return httpx.Client(verify=truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT))
+    except ImportError:
+        log.debug("truststore unavailable; using the default certifi bundle")
+        return None
+
+
 def build_client() -> AzureOpenAI:
     s = get_settings()
     if not s.azure_openai_endpoint:
         raise RuntimeError("AZURE_OPENAI_ENDPOINT is not set. Copy .env.example to .env.")
+
+    http_client = _http_client()
 
     if s.use_entra_id:
         from azure.identity import DefaultAzureCredential, get_bearer_token_provider
@@ -41,6 +68,7 @@ def build_client() -> AzureOpenAI:
             api_version=s.azure_openai_api_version,
             azure_ad_token_provider=token_provider,
             timeout=30.0,
+            http_client=http_client,
         )
 
     log.warning("Authenticating with an API key. Prefer Entra ID for anything real.")
@@ -49,6 +77,7 @@ def build_client() -> AzureOpenAI:
         api_version=s.azure_openai_api_version,
         api_key=s.azure_openai_api_key,
         timeout=30.0,
+        http_client=http_client,
     )
 
 

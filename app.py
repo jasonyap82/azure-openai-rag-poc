@@ -314,10 +314,11 @@ settings = get_settings()
 
 with st.sidebar:
     st.markdown('<div class="section-label">Assistant</div>', unsafe_allow_html=True)
-    assistant_name = st.text_input("Name shown to users", value="Taxation Assistant")
+    assistant_name = st.text_input("Name shown to users", value="Documents Secretary")
 
     n_files, filenames = corpus_summary(str(settings.data_dir))
-    st.caption(f"{n_files} document(s) indexed")
+    noun = "document" if n_files == 1 else "documents"
+    st.caption(f"{n_files} {noun} available to ask about")
     for name in filenames:
         st.caption(f"· {name}")
 
